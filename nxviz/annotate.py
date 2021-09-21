@@ -245,13 +245,13 @@ def edge_colormapping(
     colormapping(data, legend_kwargs, ax)
 
 
-def node_labels(G, layout_func, group_by, sort_by, ax=None):
+def node_labels(G, layout_func, group_by, sort_by, ax=None, rel_radius=None):
     """Annotate node labels."""
     if ax is None:
         ax = plt.gca()
 
     nt = utils.node_table(G)
-    pos = layout_func(nt, group_by, sort_by)
+    pos = layout_func(nt, group_by, sort_by, rel_radius=rel_radius)
     for node in G.nodes():
         ax.annotate(text=node, xy=pos[node], ha="center", va="center")
 
@@ -277,7 +277,7 @@ matrix_labels.__name__ = "annotate.matrix_labels"
 
 
 circos_labels = partial(
-    node_labels, layout_func=layouts.circos, group_by=None, sort_by=None
+    node_labels, layout_func=layouts.circos, group_by=None, sort_by=None, rel_radius=None
 )
 update_wrapper(circos_labels, node_labels)
 circos_labels.__name__ = "annotate.circos_labels"

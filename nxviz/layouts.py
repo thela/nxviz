@@ -34,6 +34,7 @@ def circos(
     group_by: Hashable = None,
     sort_by: Hashable = None,
     radius: float = None,
+    rel_radius: float = None,
 ) -> Dict[Hashable, np.ndarray]:
     """Circos plot node layout."""
     pos = dict()
@@ -41,6 +42,8 @@ def circos(
     nodes = list(nt.index)
     if radius is None:
         radius = circos_radius(len(nodes))
+    if rel_radius is not None:
+        radius += rel_radius
     if group_by:
         for grp, df in nt.groupby(group_by):
             for node, data in df.iterrows():
